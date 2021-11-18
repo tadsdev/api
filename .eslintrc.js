@@ -16,13 +16,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
-    'import/extensions': [
-    'error',
-    'ignorePackages',
-    {
-      ts: 'never',
-    },
-    ],
+    'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'import/no-dynamic-require': 'off',
     'import/prefer-default-export': 'off',
@@ -32,13 +26,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'class-methods-use-this': 'off',
     'max-len': 'off',
-    'import/extensions': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-  },
-  settings: {
-    'import/resolver': {
-      typescript: {},
-    },
   },
 };
