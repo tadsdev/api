@@ -5,7 +5,7 @@ const routes: Router = new Router({
   prefix: '/classes',
 });
 
-routes.post('/', (ctx: Context) => {
+routes.get('/a', (ctx: Context) => {
   console.log('classes');
 });
 

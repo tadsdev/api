@@ -10,13 +10,13 @@ try {
   const modules: string[] = fs.readdirSync(__dirname);
 
   modules.forEach((module) => {
-    if (module !== 'index.ts') {
+    if (module !== 'index.ts' && module !== 'validators') {
       const modulePath = path.join(__dirname, module, 'index.ts');
 
       if (module === 'private') {
-        console.log(module);
         router.use(TestMiddleware);
       }
+
       const moduleRouter: Router = require(modulePath).default;
 
       router.use(moduleRouter.routes());
