@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { UserType } from './Users';
+import { UserRawType } from './User';
 
 export type ProfessorRawType = {
   id?: string
@@ -11,7 +11,7 @@ export type ProfessorRawType = {
 }
 
 export type ProfessorType = ProfessorRawType & {
-  user?: UserType
+  user?: UserRawType
 }
 
 class Professor {

@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { ClassRawType } from './Class';
-import { UserType } from './Users';
+import { UserRawType } from './User';
 
 export type StudentRawType = {
   id?: string
@@ -16,7 +16,7 @@ export type StudentRawType = {
 
 export type StudentType = StudentRawType & {
   class?: ClassRawType
-  user?: UserType
+  user?: UserRawType
 }
 
 class Student {
