@@ -14,7 +14,7 @@ datasource db {
 model semesters {
   id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   name        String
-  startDate   String   @map("start_date")
+  startDate   DateTime   @map("start_date")
   conceptDate DateTime @map("concept_date")
   endDate     DateTime @map("end_date")
 
@@ -36,15 +36,15 @@ model subjects {
 }
 
 enum TypesUser {
+  ADMIN
   PROFESSOR
   STUDENT
-  ADMIN
 }
 
 model users {
   id        String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
   firstName String    @map("first_name")
-  lastName  Int       @map("last_name")
+  lastName  String       @map("last_name")
   email     String?
   phone     String?
   type      TypesUser

@@ -14,7 +14,6 @@ export function setupFileRoutesByFolder(router: Router, root: string) {
     if (lstatSync(folderPath).isDirectory()) {
       setupFileRoutesByFolder(router, folderPath);
     } else {
-      console.log(path.join(root, file));
       const module: Router = require(path.join(root, file)).default;
 
       router.use(module.routes());

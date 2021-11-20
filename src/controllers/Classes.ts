@@ -1,11 +1,11 @@
 import { Context } from 'koa';
-import Class, { ClassType } from '@/models/Class';
+import Class, { ClassRawType } from '@/models/Class';
 
 const model = new Class();
 
 class ClassesController {
   public static async create(ctx: Context) {
-    const body = ctx.request.body as ClassType;
+    const body = ctx.request.body as ClassRawType;
 
     const createdClass = await model.create(body);
 
@@ -27,7 +27,7 @@ class ClassesController {
 
   public static async update(ctx: Context) {
     const id = ctx.params.id as string;
-    const body = ctx.request.body as ClassType;
+    const body = ctx.request.body as ClassRawType;
 
     if (body.id) { delete body.id; }
 

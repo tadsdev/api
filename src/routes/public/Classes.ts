@@ -6,9 +6,6 @@ const routes: Router = new Router({
 });
 
 routes.post('/', ClassesController.create);
-routes.route({
-  method: 'post',
-});
 routes.put('/:id', ClassesController.update);
 routes.delete('/:id', ClassesController.remove);
 routes.get('/:id', ClassesController.get);
