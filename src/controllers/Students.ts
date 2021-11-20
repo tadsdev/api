@@ -4,27 +4,6 @@ import Students, { StudentRawType } from '@/models/Student';
 const model = new Students();
 
 class StudentsController {
-  public static async create(ctx: Context) {
-    const body = ctx.request.body as StudentRawType;
-
-    const createdStudents = await model.create(body);
-
-    if (!createdStudents.id) {
-      ctx.body = {
-        error: 'Error creating student',
-      };
-      return;
-    }
-
-    ctx.status = 201;
-    ctx.body = {
-      message: 'Student created successfully',
-      data: {
-        id: createdStudents.id,
-      },
-    };
-  }
-
   public static async update(ctx: Context) {
     const id = ctx.params.id as string;
     const body = ctx.request.body as StudentRawType;
