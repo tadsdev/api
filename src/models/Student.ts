@@ -23,7 +23,7 @@ class Student {
   private prisma = new PrismaClient();
 
   public async create(body: StudentRawType) {
-    const createdStudent = await this.prisma.students.create({
+    const createdStudent: StudentRawType = await this.prisma.students.create({
       data: { ...body },
     });
 

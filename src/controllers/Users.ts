@@ -1,13 +1,38 @@
 import { Context } from 'koa';
-import Users, { UserRawType } from '@/models/User';
+import UserModel, { UserRawType } from '@/models/User';
+import ProfessorModel from '@/models/Professor';
+import StudentModel from '@/models/Student';
 
-const model = new Users();
+const User = new UserModel();
+const Professor = new ProfessorModel();
+const Student = new StudentModel();
+
+type BodyCreateType = UserRawType & {
+  professor?: {
+    institutionalEmail?: string
+    graduateArea?: string
+    searchAreas?: string
+  }
+  student?: {
+    registration: string
+    institutionalEmail?: string
+    isActive: boolean
+    isRepresentative: boolean
+    classId: string
+  }
+}
+
+type DataCreateType = {
+  id?: string
+  professorId?: string
+  studentId?: string
+}
 
 class UsersController {
   public static async create(ctx: Context) {
-    const body = ctx.request.body as UserRawType;
+    const { professor, student, ...body } = ctx.request.body as BodyCreateType;
 
-    const createdUser = await model.create(body);
+    const createdUser = await User.create(body);
 
     if (!createdUser.id) {
       ctx.body = {
@@ -16,12 +41,29 @@ class UsersController {
       return;
     }
 
+    let createdProfessor;
+    let createdStudent;
+    const data: DataCreateType = {
+      id: createdUser.id,
+    };
+    let message;
+
+    if (createdUser.type === 'PROFESSOR') {
+      const bodyProfessor = { ...professor, userId: createdUser.id };
+      createdProfessor = await Professor.create(bodyProfessor);
+      data.professorId = createdProfessor.id;
+      message = 'Professor user created successfully';
+    } else if (createdUser.type === 'STUDENT') {
+      const bodyStudent = { ...student, userId: createdUser.id };
+      createdStudent = await Student.create(bodyStudent);
+      data.studentId = createdStudent.id;
+      message = 'Student user created successfully';
+    }
+
     ctx.status = 201;
     ctx.body = {
-      message: 'User created successfully',
-      data: {
-        id: createdUser.id,
-      },
+      message,
+      data,
     };
   }
 
@@ -31,7 +73,7 @@ class UsersController {
 
     if (body.id) { delete body.id; }
 
-    const updatedUser = await model.update(id, body);
+    const updatedUser = await User.update(id, body);
 
     if (!updatedUser) {
       ctx.body = {
@@ -47,7 +89,7 @@ class UsersController {
   public static async remove(ctx: Context) {
     const id = ctx.params.id as string;
 
-    const removedUser = await model.remove(id);
+    const removedUser = await User.remove(id);
 
     if (!removedUser) {
       ctx.body = {
@@ -63,14 +105,14 @@ class UsersController {
   public static async get(ctx: Context) {
     const id = ctx.params.id as string;
 
-    const User = await model.get(id);
+    const user = await User.get(id);
 
-    ctx.body = { User };
-    ctx.status = User ? 200 : 204;
+    ctx.body = { user };
+    ctx.status = user ? 200 : 204;
   }
 
   public static async getAll(ctx: Context) {
-    const users = await model.getAll();
+    const users = await User.getAll();
 
     ctx.body = { users };
     ctx.status = users.length > 0 ? 200 : 204;

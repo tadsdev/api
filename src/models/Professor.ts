@@ -3,8 +3,9 @@ import { UserRawType } from './User';
 
 export type ProfessorRawType = {
   id?: string
+  institutionalEmail?: string
   graduateArea?: string
-  searchAreas: string
+  searchAreas?: string
   userId: string
   createdAt?: Date
   updatedAt?: Date
@@ -18,7 +19,7 @@ class Professor {
   private prisma = new PrismaClient();
 
   public async create(body: ProfessorRawType) {
-    const createdProfessor = await this.prisma.professors.create({
+    const createdProfessor: ProfessorRawType = await this.prisma.professors.create({
       data: { ...body },
     });
 

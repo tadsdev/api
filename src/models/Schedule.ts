@@ -1,12 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 import { ClassRawType } from './Class';
 import { ProfessorType } from './Professor';
-import { SemesterType } from './Semester';
-import { SubjectType } from './Subject';
+import { SemesterRawType } from './Semester';
+import { SubjectRawType } from './Subject';
 
 export type ScheduleRawType = {
   id?: string
-  weekday?: string
+  weekday: string
   startTime: string
   endTime: string
   classId: string
@@ -20,8 +20,8 @@ export type ScheduleRawType = {
 export type ScheduleType = ScheduleRawType & {
   class?: ClassRawType
   professor?: ProfessorType
-  subject?: SubjectType
-  semester?: SemesterType
+  subject?: SubjectRawType
+  semester?: SemesterRawType
 }
 
 class Schedule {
@@ -57,7 +57,11 @@ class Schedule {
       where: { id },
       include: {
         class: true,
-        professor: true,
+        professor: {
+          include: {
+            user: true,
+          },
+        },
         semester: true,
         subject: true,
       },
@@ -70,7 +74,11 @@ class Schedule {
     const schedules: ScheduleRawType[] = await this.prisma.schedules.findMany({
       include: {
         class: true,
-        professor: true,
+        professor: {
+          include: {
+            user: true,
+          },
+        },
         semester: true,
         subject: true,
       },

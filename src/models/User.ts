@@ -48,7 +48,14 @@ class User {
   }
 
   public async getAll() {
-    const users: UserRawType[] = await this.prisma.users.findMany();
+    const users: UserRawType[] = await this.prisma.users.findMany(
+      {
+        include: {
+          professor: true,
+          student: true,
+        },
+      },
+    );
 
     return users;
   }
