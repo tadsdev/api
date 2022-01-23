@@ -77,4 +77,4 @@ class SubjectsController {
   }
 }
 
-export default SubjectsController;
+export { SubjectsController };

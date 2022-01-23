@@ -77,4 +77,4 @@ class ClassesController {
   }
 }
 
-export default ClassesController;
+export { ClassesController };

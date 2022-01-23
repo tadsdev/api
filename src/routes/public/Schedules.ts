@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import SchedulesController from '@/controllers/Schedules';
+import { SchedulesController } from '@/controllers/Schedules';
 
 const routes: Router = new Router({
   prefix: '/schedules',

@@ -77,4 +77,4 @@ class SemestersController {
   }
 }
 
-export default SemestersController;
+export { SemestersController };

@@ -1,13 +1,26 @@
 import { PrismaClient } from '@prisma/client';
+import { ClassRawType } from './Class';
+import { ProfessorType } from './Professor';
+import { SemesterRawType } from './Semester';
+import { SubjectDataRawType } from './SubjectData';
 
 export type SubjectRawType = {
   id?: string
-  name: string
-  workload: number
-  timeCourse: number
-  description?: string
+  classroomCode?: string
+  meetingLink?: string
+  classId: string
+  professorId: string
+  semesterId: string
+  subjectDataId: string
   createdAt?: Date
   updatedAt?: Date
+}
+
+export type SubjectType = SubjectRawType & {
+  class?: ClassRawType
+  professor?: ProfessorType
+  semester?: SemesterRawType
+  data?: SubjectDataRawType
 }
 
 class Subject {
@@ -39,15 +52,36 @@ class Subject {
   }
 
   public async get(id: string) {
-    const subject: SubjectRawType = await this.prisma.subjects.findUnique({
+    const Schedule: SubjectType = await this.prisma.subjects.findUnique({
       where: { id },
+      include: {
+        class: true,
+        professor: {
+          include: {
+            user: true,
+          },
+        },
+        semester: true,
+        data: true,
+      },
     });
 
-    return subject;
+    return Schedule;
   }
 
   public async getAll() {
-    const subjects: SubjectRawType[] = await this.prisma.subjects.findMany();
+    const subjects: SubjectType[] = await this.prisma.subjects.findMany({
+      include: {
+        class: true,
+        professor: {
+          include: {
+            user: true,
+          },
+        },
+        semester: true,
+        data: true,
+      },
+    });
 
     return subjects;
   }

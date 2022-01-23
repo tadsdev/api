@@ -56,4 +56,4 @@ class ProfessorsController {
   }
 }
 
-export default ProfessorsController;
+export { ProfessorsController };

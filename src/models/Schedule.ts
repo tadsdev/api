@@ -9,19 +9,15 @@ export type ScheduleRawType = {
   weekday: string
   startTime: string
   endTime: string
-  classId: string
+  type: 'ASYNCHRONOUS' | 'SYNCHRONOUS'
   subjectId: string
-  professorId: string
-  semesterId: string
   createdAt?: Date
   updatedAt?: Date
 }
 
 export type ScheduleType = ScheduleRawType & {
   class?: ClassRawType
-  professor?: ProfessorType
   subject?: SubjectRawType
-  semester?: SemesterRawType
 }
 
 class Schedule {
@@ -53,34 +49,27 @@ class Schedule {
   }
 
   public async get(id: string) {
-    const Schedule: ScheduleType = await this.prisma.schedules.findUnique({
+    const schedule: ScheduleType = await this.prisma.schedules.findUnique({
       where: { id },
       include: {
-        class: true,
-        professor: {
-          include: {
-            user: true,
-          },
-        },
-        semester: true,
         subject: true,
       },
     });
 
-    return Schedule;
+    return schedule;
   }
 
   public async getAll() {
     const schedules: ScheduleRawType[] = await this.prisma.schedules.findMany({
       include: {
-        class: true,
-        professor: {
+        subject: {
           include: {
-            user: true,
+            class: true,
+            data: true,
+            professor: true,
+            semester: true,
           },
         },
-        semester: true,
-        subject: true,
       },
     });
 

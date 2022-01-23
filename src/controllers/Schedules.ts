@@ -77,4 +77,4 @@ class SchedulesController {
   }
 }
 
-export default SchedulesController;
+export { SchedulesController };
