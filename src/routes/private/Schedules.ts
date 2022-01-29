@@ -5,7 +5,8 @@ const routes: Router = new Router({
   prefix: '/schedules',
 });
 
-routes.get('/:id', SchedulesController.get);
-routes.get('/', SchedulesController.getAll);
+routes.post('/', SchedulesController.create);
+routes.put('/:id', SchedulesController.update);
+routes.delete('/:id', SchedulesController.remove);
 
 export default routes;

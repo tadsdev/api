@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import Router from 'koa-router';
-import { TestMiddleware } from '@/middlewares/test';
+import { AuthMiddleware } from '@/middlewares/auth';
 
 const router: Router = new Router();
 
@@ -13,9 +13,7 @@ try {
     if (module !== 'index.ts' && module !== 'validators') {
       const modulePath = path.join(__dirname, module, 'index.ts');
 
-      if (module === 'private') {
-        router.use(TestMiddleware);
-      }
+      router.use(AuthMiddleware);
 
       const moduleRouter: Router = require(modulePath).default;
 

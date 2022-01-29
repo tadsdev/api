@@ -40,8 +40,8 @@ model subjectData {
 
 model subjects {
   id            String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  classroomCode String?
-  meetingLink   String?
+  classroomCode String?  @map("classroom_code")
+  meetingLink   String?  @map("meeting_link")
   classId       String   @map("class_id") @db.ObjectId
   professorId   String   @map("professor_id") @db.ObjectId
   semesterId    String   @map("semester_id") @db.ObjectId

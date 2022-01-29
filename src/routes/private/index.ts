@@ -1,7 +1,9 @@
 import Router from 'koa-router';
 import { setupFileRoutesByFolder } from '../../utils/routes';
 
-const routes: Router = new Router();
+const routes: Router = new Router({
+  prefix: '/admin',
+});
 
 try {
   setupFileRoutesByFolder(routes, __dirname);

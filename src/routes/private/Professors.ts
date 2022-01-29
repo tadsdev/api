@@ -5,7 +5,7 @@ const routes: Router = new Router({
   prefix: '/professors',
 });
 
-routes.get('/:id', ProfessorsController.get);
-routes.get('/', ProfessorsController.getAll);
+routes.put('/:id', ProfessorsController.update);
+routes.delete('/:id', ProfessorsController.remove);
 
 export default routes;

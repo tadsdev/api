@@ -5,7 +5,8 @@ const routes: Router = new Router({
   prefix: '/subject-data',
 });
 
-routes.get('/:id', SubjectDataController.get);
-routes.get('/', SubjectDataController.getAll);
+routes.post('/', SubjectDataController.create);
+routes.put('/:id', SubjectDataController.update);
+routes.delete('/:id', SubjectDataController.remove);
 
 export default routes;

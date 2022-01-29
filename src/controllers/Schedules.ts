@@ -70,10 +70,12 @@ class SchedulesController {
   }
 
   public static async getAll(ctx: Context) {
-    const schedules = await model.getAll();
+    const params = ctx.request.query;
+
+    const schedules = await model.getAll(params);
 
     ctx.body = { schedules };
-    ctx.status = schedules.length > 0 ? 200 : 204;
+    // ctx.status = schedules.length > 0 ? 200 : 204;
   }
 }
 

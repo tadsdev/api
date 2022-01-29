@@ -1,7 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import { ClassRawType } from './Class';
-import { ProfessorType } from './Professor';
-import { SemesterRawType } from './Semester';
 import { SubjectRawType } from './Subject';
 
 export type ScheduleRawType = {
@@ -18,6 +16,14 @@ export type ScheduleRawType = {
 export type ScheduleType = ScheduleRawType & {
   class?: ClassRawType
   subject?: SubjectRawType
+}
+
+export type SchedulesByWeekday = {
+  Monday?: ScheduleType
+  Tuesday?: ScheduleType
+  Wednesday?: ScheduleType
+  Thursday?: ScheduleType
+  Friday?: ScheduleType
 }
 
 class Schedule {
@@ -59,21 +65,49 @@ class Schedule {
     return schedule;
   }
 
-  public async getAll() {
+  public async getAll(params) {
     const schedules: ScheduleRawType[] = await this.prisma.schedules.findMany({
+      where: {
+        OR: {
+          type: params.type,
+          subject: {
+            class: {
+              slug: params.slug,
+              id: params.classId,
+            },
+            semesterId: params.semesterId,
+            professorId: params.professorId,
+          },
+        },
+      },
       include: {
         subject: {
           include: {
             class: true,
             data: true,
-            professor: true,
+            professor: {
+              include: {
+                user: true,
+              },
+            },
             semester: true,
           },
         },
       },
     });
 
-    return schedules;
+    const schedulesByWeekday: SchedulesByWeekday = {};
+
+    schedules.forEach((schedule) => {
+      if (schedule.weekday in schedulesByWeekday) {
+        schedulesByWeekday[schedule.weekday].push(schedule);
+      } else {
+        schedulesByWeekday[schedule.weekday] = [];
+        schedulesByWeekday[schedule.weekday].push(schedule);
+      }
+    });
+
+    return schedulesByWeekday;
   }
 }
 

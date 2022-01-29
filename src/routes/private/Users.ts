@@ -5,7 +5,8 @@ const routes: Router = new Router({
   prefix: '/users',
 });
 
-routes.get('/:id', UsersController.get);
-routes.get('/', UsersController.getAll);
+routes.post('/', UsersController.create);
+routes.put('/:id', UsersController.update);
+routes.delete('/:id', UsersController.remove);
 
 export default routes;
