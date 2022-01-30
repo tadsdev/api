@@ -58,7 +58,18 @@ class Schedule {
     const schedule: ScheduleType = await this.prisma.schedules.findUnique({
       where: { id },
       include: {
-        subject: true,
+        subject: {
+          include: {
+            class: true,
+            data: true,
+            professor: {
+              include: {
+                user: true,
+              },
+            },
+            semester: true,
+          },
+        },
       },
     });
 
