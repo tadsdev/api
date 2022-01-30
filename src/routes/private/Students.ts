@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import { StudentsController } from '@/controllers/Students';
+import { StudentsController } from '../../controllers/Students';
 
 const routes: Router = new Router({
   prefix: '/students',

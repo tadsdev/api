@@ -1,7 +1,7 @@
 import { Context } from 'koa';
-import UserModel, { UserRawType } from '@/models/User';
-import ProfessorModel from '@/models/Professor';
-import StudentModel from '@/models/Student';
+import UserModel, { UserRawType } from '../models/User';
+import ProfessorModel from '../models/Professor';
+import StudentModel from '../models/Student';
 
 const User = new UserModel();
 const Professor = new ProfessorModel();

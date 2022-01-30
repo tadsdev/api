@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import Semester, { SemesterRawType } from '@/models/Semester';
+import Semester, { SemesterRawType } from '../models/Semester';
 
 const model = new Semester();
 

@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import Subjects, { SubjectRawType } from '@/models/Subject';
+import Subjects, { SubjectRawType } from '../models/Subject';
 
 const model = new Subjects();
 

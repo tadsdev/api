@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import { ClassesController } from '@/controllers/Classes';
+import { ClassesController } from '../../controllers/Classes';
 
 const routes: Router = new Router({
   prefix: '/classes',

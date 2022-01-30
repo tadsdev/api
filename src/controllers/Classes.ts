@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import Class, { ClassRawType } from '@/models/Class';
+import Class, { ClassRawType } from '../models/Class';
 
 const model = new Class();
 

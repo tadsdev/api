@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import Router from 'koa-router';
-import { AuthMiddleware } from '@/middlewares/auth';
+import { AuthMiddleware } from '../middlewares/auth';
 
 const router: Router = new Router();
 

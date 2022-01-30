@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import Schedule, { ScheduleRawType } from '@/models/Schedule';
+import Schedule, { ScheduleRawType } from '../models/Schedule';
 
 const model = new Schedule();
 

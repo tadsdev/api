@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import Students, { StudentRawType } from '@/models/Student';
+import Students, { StudentRawType } from '../models/Student';
 
 const model = new Students();
 

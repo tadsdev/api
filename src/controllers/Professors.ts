@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import Professor, { ProfessorRawType } from '@/models/Professor';
+import Professor, { ProfessorRawType } from '../models/Professor';
 
 const model = new Professor();
 
